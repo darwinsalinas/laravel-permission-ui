@@ -20,3 +20,10 @@ Vue.component('manage-users', require('./components/lpui/Usuarios/Usuarios.vue')
 Vue.component('manage-roles', require('./components/lpui/Usuarios/Roles.vue'));
 Vue.component('manage-permissions', require('./components/lpui/Usuarios/Permissions.vue'));
 ```
+
+
+```html
+<manage-users :endpoint-url="'{{config('lpui.url.users')}}'"></manage-users>
+<manage-roles :endpoint-url="'{{config('lpui.url.roles')}}'"></manage-roles>
+<manage-permissions :endpoint-url="'{{config('lpui.url.permissions')}}'"></manage-permissions>
+```
