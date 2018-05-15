@@ -22,12 +22,16 @@ class LaravelPermissionUIServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/lpui.php', 'lpui'
         );
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'lpui');
 
         $this->publishes([
             __DIR__ . '/../config/lpui.php' => config_path('lpui.php')
         ]);
+
+
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'lpui');
+
+
     }
 
     public function register()
