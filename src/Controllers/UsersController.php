@@ -1,15 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: darwin
- * Date: 15/5/18
- * Time: 11:09 AM
- */
 
 namespace Dsalinas\LPUI\Controllers;
-
-
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 
 /**
@@ -19,39 +11,74 @@ use Illuminate\Http\Response;
 class UsersController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function modulo()
     {
-        $data = config('lpui.models.user')::query()->with(['permissions', 'roles'])->paginate(  );
-
-        return response()->json([
-            'data' => $data
-        ], 200);
-//        return view('lpui::users');
+        return view('lpui::users');
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $data = config('lpui.models.user')::query()->with(['permissions', 'roles'])->get();
 
-        return response()->json([
-            'data' => $data
-        ], 200);
+        return response()->json($data, 200);
+    }
+
+
+    /**
+     * @param $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($user)
+    {
+        $data = config('lpui.models.user')::findOrFail($user);
+        return response()->json($data, 204);
     }
 
     /**
-     * @param User $user
+     * @param $user
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
-        $user->delete();
+        config('lpui.models.user')::findOrFail($user)->delete();
+        return response()->json(null, 204);
+    }
 
-        return response()->json([
-            'message' => 'success',
-            'error' => false,
-            'data' => $user->id
-        ], Response::HTTP_NO_CONTENT);
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function store(Request $request)
+    {
+        $data = $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        return config('lpui.models.user')::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
+
+    public function update(Request $request, $user)
+    {
+        $rs = $data = config('lpui.models.user')::findOrFail($user);
+        $data = $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        $rs->fill($data);
+        $rs->save();
     }
 
 }
