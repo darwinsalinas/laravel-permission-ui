@@ -2,12 +2,12 @@
 
 Route::get('manage/users', function () {
     return view('lpui::users');
-})->middleware('auth');
+})->middleware('web','auth');
 
 Route::get('manage/roles', function () {
     return view('lpui::roles');
-})->middleware('auth');
+})->middleware('web','auth');
 
 Route::get('manage/permissions', function () {
     return view('lpui::permissions');
-})->middleware('auth');
+})->middleware('web','auth');
