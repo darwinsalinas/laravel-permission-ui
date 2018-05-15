@@ -28,7 +28,7 @@ class LaravelPermissionUIServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            __DIR__.'/../resources/assets/js/components' => base_path('resources/assets/js/components/lpui'),
+            __DIR__.'/resources/assets/js/components' => base_path('resources/assets/js/components/lpui'),
         ], 'lpui-components');
 
 
