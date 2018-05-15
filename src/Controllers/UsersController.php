@@ -8,7 +8,7 @@
 
 namespace Dsalinas\LPUI\Controllers;
 
-use App\User;
+
 use Illuminate\Http\Response;
 
 
@@ -21,12 +21,17 @@ class UsersController extends Controller
 
     public function modulo()
     {
-        return view('lpui::users');
+        $data = config('lpui.models.user')::query()->with(['permissions', 'roles'])->paginate(  );
+
+        return response()->json([
+            'data' => $data
+        ], 200);
+//        return view('lpui::users');
     }
 
     public function index()
     {
-        $data = User::query()->with(['permissions', 'roles'])->get();
+        $data = config('lpui.models.user')::query()->with(['permissions', 'roles'])->get();
 
         return response()->json([
             'data' => $data
