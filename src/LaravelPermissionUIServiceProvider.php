@@ -25,7 +25,7 @@ class LaravelPermissionUIServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../config/lpui.php' => config_path('lpui.php')
-        ]);
+        ], 'config');
 
 
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
