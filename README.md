@@ -27,3 +27,36 @@ Vue.component('manage-permissions', require('./components/lpui/Usuarios/Permissi
 <manage-roles :endpoint-url="'{{config('lpui.url.roles')}}'"></manage-roles>
 <manage-permissions :endpoint-url="'{{config('lpui.url.permissions')}}'"></manage-permissions>
 ```
+
+```php
+return [
+    /**
+     * The endpoint for each model.
+     */
+    'url' => [
+        'users' => 'admin/usuarios',
+        'roles' => 'admin/roles',
+        'permissions' => 'admin/permisos',
+    ],
+
+    /**
+     * The middleware(s) to apply before attempting to access
+     */
+    'middlewares' => ['web', 'auth'],
+
+    /**
+     * User Model
+     */
+    'models' => [
+        'user' => App\User::class
+    ],
+
+    /**
+     * Table Name
+     */
+    'table_names' => [
+        'users' => 'users',
+    ],
+
+];
+```
