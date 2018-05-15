@@ -18,5 +18,18 @@
         "psr-4": {
             "Dsalinas\\LPUI\\": "src/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Dsalinas\\LPUI\\LaravelPermissionUIServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
